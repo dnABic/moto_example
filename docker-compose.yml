@@ -1,0 +1,25 @@
+version: '2.1'
+
+services:
+  awsserver:
+    build: awsserver
+    image: dnabic/awsserver:v0.0.1
+    hostname: moto
+    container_name: moto
+    ports:
+      - "5000:5000"
+    labels:
+      app: moto
+    networks:
+      -  aws_net
+    command: moto_server ec2 -H 0.0.0.0
+#    healthcheck:
+      #      test: ["CMD-SHELL", "curl -f http://localhost:5000"]
+      #      test: ["CMD", "curl","-f" "http://localhost:5000"]
+      #      interval: 7s
+      #      timeout: 2s
+      #      retries: 2
+
+networks:
+  aws_net:
+    driver: bridge
